@@ -29,7 +29,7 @@ namespace LineMess.Controllers
         }
 
 
-        [HttpPost("SendMessage/send")]
+        [HttpPost("SendMessage/send")]//私訊 需輸入Id
         public IActionResult send([Required]string messageType, object body)
         {
             _lineBotService.PushMessageHandler(messageType, body);

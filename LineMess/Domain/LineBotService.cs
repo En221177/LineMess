@@ -17,6 +17,8 @@ namespace LineMess.Domain
 
         private readonly string replyMessageUri = "https://api.line.me/v2/bot/message/reply";
         private readonly string broadcastMessageUri = "https://api.line.me/v2/bot/message/broadcast";
+        private readonly string pushtMessageUri = "https://api.line.me/v2/bot/message/push";
+
         private static HttpClient client = new HttpClient(); // 負責處理HttpRequest
         private readonly JsonProvider _jsonProvider = new JsonProvider();
 
@@ -68,6 +70,16 @@ namespace LineMess.Domain
 
 
 
+
+
+
+
+
+
+
+
+
+
         public void PushMessageHandler(string messageType, object requestBody)//私訊
         {
             string strBody = requestBody.ToString();
@@ -82,7 +94,6 @@ namespace LineMess.Domain
             }
 
         }
-        
         public async void PushMessage<T>(BroadcastMessageRequestDto<T> request)
         {
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json")); //-H 'Content-Type: application/json'
@@ -93,7 +104,7 @@ namespace LineMess.Domain
             var requestMessage = new HttpRequestMessage
             {
                 Method = HttpMethod.Post,
-                RequestUri = new Uri("https://api.line.me/v2/bot/message/push"),
+                RequestUri = new Uri(pushtMessageUri),
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
             };
 
